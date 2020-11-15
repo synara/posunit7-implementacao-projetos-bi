@@ -44,6 +44,7 @@ CREATE TABLE dim_pessoa
     pes_cep character varying(19) COLLATE pg_catalog."default",
     pes_sexo character varying(12) COLLATE pg_catalog."default",
     pes_tpcliente character varying(8) COLLATE pg_catalog."default",
+    tp_perfil character varying(20) COLLATE pg_catalog."default"
     CONSTRAINT dim_pessoa_pkey PRIMARY KEY (pes_codcliente)
 )
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>verificaDW</name>
+    <name>CargaFatoVendas</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -66,9 +66,9 @@
     <clusterschemas>
     </clusterschemas>
   <created_user>-</created_user>
-  <created_date>2020&#x2f;11&#x2f;11 22&#x3a;53&#x3a;10.520</created_date>
+  <created_date>2020&#x2f;11&#x2f;15 01&#x3a;12&#x3a;24.292</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2020&#x2f;11&#x2f;11 22&#x3a;53&#x3a;10.520</modified_date>
+  <modified_date>2020&#x2f;11&#x2f;15 01&#x3a;12&#x3a;24.292</modified_date>
     <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA&#x3d;</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
@@ -99,10 +99,12 @@
     </attributes>
   </connection>
   <order>
+  <hop> <from>Table input</from><to>Select values</to><enabled>Y</enabled> </hop>
+  <hop> <from>Select values</from><to>Table output</to><enabled>Y</enabled> </hop>
   </order>
   <step>
-    <name>verifica dim_fatura</name>
-    <type>ExecSQL</type>
+    <name>Select values</name>
+    <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -111,94 +113,168 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>bi_uni7</connection>
-    <execute_each_row>N</execute_each_row>
-    <single_statement>N</single_statement>
-    <replace_variables>N</replace_variables>
-    <quoteString>N</quoteString>
-    <sql>DELETE FROM DIM_FATURA a&#xd;&#xa;  where exists &#x28;select 1 from DIM_FATURA b &#xd;&#xa;      WHERE a.fat_numeronota &#x3d; b.fat_numeronota &#xd;&#xa;        AND a.fat_codfatura &#x3e; b.fat_codfatura&#x29;&#x3b;</sql>
-    <set_params>N</set_params>
-    <insert_field/>
-    <update_field/>
-    <delete_field/>
-    <read_field/>
-    <arguments>
-    </arguments>
-     <cluster_schema/>
+    <fields>        <select_unspecified>N</select_unspecified>
+      <meta>        <name>loja_codloja</name>
+        <rename>sk_codloja</rename>
+        <type>Integer</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>cod_cliente</name>
+        <rename>sk_codcliente</rename>
+        <type>Integer</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>cod_vendedor</name>
+        <rename>sk_codvendedor</rename>
+        <type>Integer</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>prod_codproduto</name>
+        <rename>sk_codproduto</rename>
+        <type>Integer</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>fat_codfatura</name>
+        <rename>sk_codfatura</rename>
+        <type>Integer</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>tp_codtppgto</name>
+        <rename>sk_codtppgto</rename>
+        <type>Integer</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>fp_codformpgto</name>
+        <rename>sk_codformpgto</rename>
+        <type>Integer</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>quantidade</name>
+        <rename>quantidade_vendida</rename>
+        <type>Integer</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>lucro</name>
+        <rename>lucro</rename>
+        <type>Number</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask>&#x23;.&#x23;</conversion_mask>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>valor_total</name>
+        <rename>valor_venda</rename>
+        <type>Number</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask>&#x23;.&#x23;</conversion_mask>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>384</xloc>
-      <yloc>176</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>verifica dim_forma_pgto</name>
-    <type>ExecSQL</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>bi_uni7</connection>
-    <execute_each_row>N</execute_each_row>
-    <single_statement>N</single_statement>
-    <replace_variables>N</replace_variables>
-    <quoteString>N</quoteString>
-    <sql>DELETE FROM DIM_FORMA_PGTO a&#xd;&#xa;  where exists &#x28;select 1 from DIM_FORMA_PGTO b &#xd;&#xa;      WHERE a.cod_formpgto &#x3d; b.cod_formpgto &#xd;&#xa;        AND a.fp_codformpgto &#x3e; b.fp_codformpgto&#x29;&#x3b;</sql>
-    <set_params>N</set_params>
-    <insert_field/>
-    <update_field/>
-    <delete_field/>
-    <read_field/>
-    <arguments>
-    </arguments>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>608</xloc>
-      <yloc>176</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>verifica dim_loja</name>
-    <type>ExecSQL</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>bi_uni7</connection>
-    <execute_each_row>N</execute_each_row>
-    <single_statement>N</single_statement>
-    <replace_variables>N</replace_variables>
-    <quoteString>N</quoteString>
-    <sql>DELETE FROM dim_loja a&#xd;&#xa;  where exists &#x28;select 1 from dim_loja b &#xd;&#xa;      WHERE a.loja_codorigem &#x3d; b.loja_codorigem &#xd;&#xa;        AND a.loja_codloja &#x3e; b.loja_codloja&#x29;&#x3b;</sql>
-    <set_params>N</set_params>
-    <insert_field/>
-    <update_field/>
-    <delete_field/>
-    <read_field/>
-    <arguments>
-    </arguments>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>384</xloc>
+      <xloc>416</xloc>
       <yloc>288</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>verifica dim_pessoa</name>
-    <type>ExecSQL</type>
+    <name>Table input</name>
+    <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -208,29 +284,23 @@
            <schema_name/>
            </partitioning>
     <connection>bi_uni7</connection>
+    <sql>SELECT DL.LOJA_CODLOJA, CLIENTE.PES_CODCLIENTE COD_CLIENTE,&#xd;&#xa;		COALESCE&#x28;VENDEDOR.PES_CODCLIENTE, 0&#x29; COD_VENDEDOR, DPRD.PROD_CODPRODUTO, &#xd;&#xa;		DF.FAT_CODFATURA, DTP.TP_CODTPPGTO,&#xd;&#xa;		DFP.FP_CODFORMPGTO, &#xd;&#xa;		PRE.QUANTIDADE,&#xd;&#xa;		PRE.LUCRO, &#xd;&#xa;		PRE.VALOR_TOTAL &#xd;&#xa;FROM PRE_FATO_VENDAS PRE&#xd;&#xa;	INNER JOIN DIM_LOJA DL&#xd;&#xa;		ON PRE.LOJA &#x3d; DL.LOJA_CODORIGEM&#xd;&#xa;	INNER JOIN DIM_PRODUTO DPRD&#xd;&#xa;		ON DPRD.PROD_CODORIGEM &#x3d; PRE.ITEM&#xd;&#xa;	INNER JOIN DIM_FATURA DF &#xd;&#xa;		ON PRE.NUMERO_FATURA &#x3d; DF.FAT_NUMERONOTA&#xd;&#xa;	INNER JOIN DIM_TIPO_PAGAMENTO DTP&#xd;&#xa;		ON DTP.COD_TIPOPGTO &#x3d; PRE.TP_PGTO &#xd;&#xa;	INNER JOIN DIM_FORMA_PGTO DFP&#xd;&#xa;		ON DFP.COD_FORMPGTO &#x3d; PRE.FORMA_PGTO&#xd;&#xa;	INNER JOIN &#x28;SELECT DP.PES_CODORIGEM, DP.PES_CODCLIENTE &#xd;&#xa;				FROM DIM_PESSOA DP&#xd;&#xa;				WHERE DP.TP_PERFIL &#x3d; &#x27;CLIENTE&#x27;&#xd;&#xa;			   &#x29; CLIENTE&#xd;&#xa;		ON CLIENTE.PES_CODORIGEM &#x3d; PRE.COD_CLIENTE&#xd;&#xa;	LEFT JOIN &#x28;SELECT DP.PES_CODORIGEM, DP.PES_CODCLIENTE &#xd;&#xa;				FROM DIM_PESSOA DP&#xd;&#xa;				WHERE DP.TP_PERFIL &#x3d; &#x27;VENDEDOR&#x27;&#xd;&#xa;			   &#x29; VENDEDOR&#xd;&#xa;		ON VENDEDOR.PES_CODORIGEM &#x3d; PRE.COD_VENDEDOR</sql>
+    <limit>0</limit>
+    <lookup/>
     <execute_each_row>N</execute_each_row>
-    <single_statement>N</single_statement>
-    <replace_variables>N</replace_variables>
-    <quoteString>N</quoteString>
-    <sql>DELETE FROM DIM_PESSOA a&#xd;&#xa;  where exists &#x28;select 1 from DIM_PESSOA b &#xd;&#xa;      WHERE a.PES_CODORIGEM &#x3d; b.PES_CODORIGEM &#xd;&#xa;        AND a.PES_CODCLIENTE &#x3e; b.PES_CODCLIENTE&#x29;&#x3b;</sql>
-    <set_params>N</set_params>
-    <insert_field/>
-    <update_field/>
-    <delete_field/>
-    <read_field/>
-    <arguments>
-    </arguments>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>608</xloc>
+      <xloc>272</xloc>
       <yloc>288</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>verifica dim_produto</name>
-    <type>ExecSQL</type>
+    <name>Table output</name>
+    <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -240,54 +310,28 @@
            <schema_name/>
            </partitioning>
     <connection>bi_uni7</connection>
-    <execute_each_row>N</execute_each_row>
-    <single_statement>N</single_statement>
-    <replace_variables>N</replace_variables>
-    <quoteString>N</quoteString>
-    <sql>DELETE FROM DIM_PRODUTO a&#xd;&#xa;  where exists &#x28;select 1 from DIM_PRODUTO b &#xd;&#xa;      WHERE a.prod_codorigem &#x3d; b.prod_codorigem &#xd;&#xa;        AND a.prod_codproduto &#x3e; b.prod_codproduto&#x29;&#x3b;</sql>
-    <set_params>N</set_params>
-    <insert_field/>
-    <update_field/>
-    <delete_field/>
-    <read_field/>
-    <arguments>
-    </arguments>
+    <schema/>
+    <table>fato_vendas</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>N</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+    </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>384</xloc>
-      <yloc>416</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>verifica dim_tipo_pagamento</name>
-    <type>ExecSQL</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>bi_uni7</connection>
-    <execute_each_row>N</execute_each_row>
-    <single_statement>N</single_statement>
-    <replace_variables>N</replace_variables>
-    <quoteString>N</quoteString>
-    <sql>DELETE FROM dim_tipo_pagamento a&#xd;&#xa;  where exists &#x28;select 1 from dim_tipo_pagamento b &#xd;&#xa;      WHERE a.COD_TIPOPGTO &#x3d; b.COD_TIPOPGTO &#xd;&#xa;        AND a.TP_CODTPPGTO &#x3e; b.TP_CODTPPGTO&#x29;&#x3b;</sql>
-    <set_params>N</set_params>
-    <insert_field/>
-    <update_field/>
-    <delete_field/>
-    <read_field/>
-    <arguments>
-    </arguments>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>608</xloc>
-      <yloc>416</yloc>
+      <xloc>576</xloc>
+      <yloc>288</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
