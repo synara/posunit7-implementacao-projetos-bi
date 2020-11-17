@@ -56,7 +56,7 @@ CREATE TABLE dim_produto
     prod_embalagem character varying(10) COLLATE pg_catalog."default",
     prod_qt_embalagem integer,
     prod_marca character varying(20) COLLATE pg_catalog."default",
-    prod_grupo character varying(4) COLLATE pg_catalog."default",
+    prod_grupo character varying(60) COLLATE pg_catalog."default",
     CONSTRAINT dim_produto_pkey PRIMARY KEY (prod_codproduto)
 )
 

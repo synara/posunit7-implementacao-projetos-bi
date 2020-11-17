@@ -135,16 +135,49 @@
   <hop> <from>Select values 3</from><to>Table output 3</to><enabled>Y</enabled> </hop>
   <hop> <from>TIPO PGTO</from><to>Select values 5</to><enabled>Y</enabled> </hop>
   <hop> <from>Select values 5</from><to>Table output 5</to><enabled>Y</enabled> </hop>
-  <hop> <from>FATO VENDAS</from><to>Select values 7</to><enabled>Y</enabled> </hop>
+  <hop> <from>PRE VENDAS</from><to>Select values 7</to><enabled>Y</enabled> </hop>
   <hop> <from>Select values 7</from><to>If field value is null 2</to><enabled>Y</enabled> </hop>
   <hop> <from>If field value is null 2</from><to>Table output 6</to><enabled>Y</enabled> </hop>
-  <hop> <from>Select values 4</from><to>Table output 7</to><enabled>Y</enabled> </hop>
   <hop> <from>Select values 6</from><to>If field value is null 2 2</to><enabled>Y</enabled> </hop>
   <hop> <from>If field value is null 2 2</from><to>Table output 4</to><enabled>Y</enabled> </hop>
   <hop> <from>Table output 4</from><to>Execute SQL script</to><enabled>Y</enabled> </hop>
+  <hop> <from>Select values 4</from><to>If field value is null 2 2 2</to><enabled>Y</enabled> </hop>
+  <hop> <from>If field value is null 2 2 2</from><to>Table output 7</to><enabled>Y</enabled> </hop>
   </order>
   <step>
-    <name>FATO VENDAS</name>
+    <name>Execute SQL script</name>
+    <type>ExecSQL</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>bi_uni7</connection>
+    <execute_each_row>N</execute_each_row>
+    <single_statement>N</single_statement>
+    <replace_variables>N</replace_variables>
+    <quoteString>N</quoteString>
+    <sql>INSERT INTO DIM_PESSOA&#xd;&#xa;SELECT 0, &#x27;0&#x27;,	&#x27;S&#x2f;N&#x27;,	&#x27;S&#x2f;N&#x27;,	&#x27;S&#x2f;N&#x27;,	&#x27;S&#x2f;N&#x27;,	&#x27;S&#x2f;N&#x27;,	&#x27;S&#x2f;N&#x27;,	&#x27;S&#x2f;N&#x27;,	&#x27;S&#x2f;N&#x27;,	&#x27;S&#x2f;N&#x27;,	&#x27;S&#x2f;N&#x27;,	&#x27;VENDEDOR&#x27;&#xd;&#xa;WHERE&#xd;&#xa;    NOT EXISTS &#x28;&#xd;&#xa;        SELECT &#x2a; FROM DIM_PESSOA WHERE pes_codcliente &#x3d; 0&#xd;&#xa;   &#x29;&#x3b;</sql>
+    <set_params>N</set_params>
+    <insert_field/>
+    <update_field/>
+    <delete_field/>
+    <read_field/>
+    <arguments>
+    </arguments>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>784</xloc>
+      <yloc>336</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>PRE VENDAS</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -329,7 +362,7 @@
       </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>400</xloc>
+      <xloc>384</xloc>
       <yloc>336</yloc>
       <draw>Y</draw>
       </GUI>
@@ -399,7 +432,7 @@
            <schema_name/>
            </partitioning>
     <connection>uni7</connection>
-    <sql>SELECT ITM_ITEM, ITM_DESCRIABV, ITM_EMBALA, ITM_QTEMBAL, ITM_MARCA, ITM_GRUPO FROM ITEM</sql>
+    <sql>SELECT ITM_ITEM, ITM_DESCRIABV, ITM_EMBALA, ITM_QTEMBAL, ITM_MARCA, GRP.GRP_DSCGRP &#xd;&#xa;FROM ITEM&#xd;&#xa;	INNER JOIN TAB_GRUPO GRP&#xd;&#xa;		ON ITM_GRUPO &#x3d; GRP_CODGRP</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -840,10 +873,10 @@
         <grouping_symbol/>
         <currency_symbol/>
         <storage_type/>
-      </meta>      <meta>        <name>itm_grupo</name>
+      </meta>      <meta>        <name>grp_dscgrp</name>
         <rename>prod_grupo</rename>
         <type>String</type>
-        <length>4</length>
+        <length>60</length>
         <precision>-2</precision>
         <conversion_mask/>
         <date_format_lenient>false</date_format_lenient>
@@ -1470,7 +1503,7 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>608</xloc>
+      <xloc>560</xloc>
       <yloc>336</yloc>
       <draw>Y</draw>
       </GUI>
@@ -1584,15 +1617,15 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>368</xloc>
+      <xloc>560</xloc>
       <yloc>432</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Execute SQL script</name>
-    <type>ExecSQL</type>
+    <name>If field value is null 2 2 2</name>
+    <type>IfNull</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -1601,23 +1634,31 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>bi_uni7</connection>
-    <execute_each_row>N</execute_each_row>
-    <single_statement>N</single_statement>
-    <replace_variables>N</replace_variables>
-    <quoteString>N</quoteString>
-    <sql>INSERT INTO DIM_PESSOA&#xd;&#xa;SELECT 0, &#x27;0&#x27;,	&#x27;S&#x2f;N&#x27;,	&#x27;S&#x2f;N&#x27;,	&#x27;S&#x2f;N&#x27;,	&#x27;S&#x2f;N&#x27;,	&#x27;S&#x2f;N&#x27;,	&#x27;S&#x2f;N&#x27;,	&#x27;S&#x2f;N&#x27;,	&#x27;S&#x2f;N&#x27;,	&#x27;S&#x2f;N&#x27;,	&#x27;S&#x2f;N&#x27;,	&#x27;VENDEDOR&#x27;&#xd;&#xa;WHERE&#xd;&#xa;    NOT EXISTS &#x28;&#xd;&#xa;        SELECT &#x2a; FROM DIM_PESSOA WHERE pes_codcliente &#x3d; 0&#xd;&#xa;   &#x29;&#x3b;</sql>
-    <set_params>N</set_params>
-    <insert_field/>
-    <update_field/>
-    <delete_field/>
-    <read_field/>
-    <arguments>
-    </arguments>
+      <replaceAllByValue/>
+      <replaceAllMask/>
+      <selectFields>Y</selectFields>
+      <selectValuesType>N</selectValuesType>
+      <setEmptyStringAll>N</setEmptyStringAll>
+    <valuetypes>
+      </valuetypes>
+    <fields>
+      <field>
+        <name>prod_marca</name>
+        <value>S&#x2f;N</value>
+        <mask/>
+        <set_empty_string>N</set_empty_string>
+        </field>
+      <field>
+        <name>prod_embalagem</name>
+        <value>S&#x2f;N</value>
+        <mask/>
+        <set_empty_string>N</set_empty_string>
+        </field>
+      </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>784</xloc>
-      <yloc>336</yloc>
+      <xloc>384</xloc>
+      <yloc>432</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
