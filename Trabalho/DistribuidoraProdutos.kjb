@@ -54,7 +54,7 @@
       <yloc>224</yloc>
       </entry>
     <entry>
-      <name>Job</name>
+      <name>vendas</name>
       <description/>
       <type>JOB</type>
       <specification_method>filename</specification_method>
@@ -88,7 +88,7 @@
   <hops>
     <hop>
       <from>START</from>
-      <to>Job</to>
+      <to>vendas</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>

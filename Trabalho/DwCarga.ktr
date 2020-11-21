@@ -125,24 +125,20 @@
   <order>
   <hop> <from>FATURA</from><to>Select values 2</to><enabled>Y</enabled> </hop>
   <hop> <from>LOJA</from><to>Select values</to><enabled>Y</enabled> </hop>
-  <hop> <from>Select values</from><to>Table output</to><enabled>Y</enabled> </hop>
-  <hop> <from>If field value is null</from><to>Table output 2</to><enabled>Y</enabled> </hop>
   <hop> <from>Select values 2</from><to>Replace in string</to><enabled>Y</enabled> </hop>
-  <hop> <from>Replace in string</from><to>If field value is null</to><enabled>Y</enabled> </hop>
   <hop> <from>FORMA PGTO</from><to>Select values 3</to><enabled>Y</enabled> </hop>
   <hop> <from>PESSOA</from><to>Select values 6</to><enabled>Y</enabled> </hop>
   <hop> <from>PRODUTO</from><to>Select values 4</to><enabled>Y</enabled> </hop>
-  <hop> <from>Select values 3</from><to>Table output 3</to><enabled>Y</enabled> </hop>
   <hop> <from>TIPO PGTO</from><to>Select values 5</to><enabled>Y</enabled> </hop>
-  <hop> <from>Select values 5</from><to>Table output 5</to><enabled>Y</enabled> </hop>
-  <hop> <from>PRE VENDAS</from><to>Select values 7</to><enabled>Y</enabled> </hop>
-  <hop> <from>Select values 7</from><to>If field value is null 2</to><enabled>Y</enabled> </hop>
-  <hop> <from>If field value is null 2</from><to>Table output 6</to><enabled>Y</enabled> </hop>
   <hop> <from>Select values 6</from><to>If field value is null 2 2</to><enabled>Y</enabled> </hop>
-  <hop> <from>If field value is null 2 2</from><to>Table output 4</to><enabled>Y</enabled> </hop>
-  <hop> <from>Table output 4</from><to>Execute SQL script</to><enabled>Y</enabled> </hop>
   <hop> <from>Select values 4</from><to>If field value is null 2 2 2</to><enabled>Y</enabled> </hop>
-  <hop> <from>If field value is null 2 2 2</from><to>Table output 7</to><enabled>Y</enabled> </hop>
+  <hop> <from>Select values</from><to>Insert &#x2f; Update</to><enabled>Y</enabled> </hop>
+  <hop> <from>Select values 3</from><to>Insert &#x2f; Update 3</to><enabled>Y</enabled> </hop>
+  <hop> <from>If field value is null 2 2</from><to>Insert &#x2f; Update 4</to><enabled>Y</enabled> </hop>
+  <hop> <from>If field value is null 2 2 2</from><to>Insert &#x2f; Update 5</to><enabled>Y</enabled> </hop>
+  <hop> <from>Select values 5</from><to>Insert &#x2f; Update 6</to><enabled>Y</enabled> </hop>
+  <hop> <from>Replace in string</from><to>Insert &#x2f; Update 2</to><enabled>Y</enabled> </hop>
+  <hop> <from>Insert &#x2f; Update 4</from><to>Execute SQL script</to><enabled>Y</enabled> </hop>
   </order>
   <step>
     <name>Execute SQL script</name>
@@ -160,7 +156,7 @@
     <single_statement>N</single_statement>
     <replace_variables>N</replace_variables>
     <quoteString>N</quoteString>
-    <sql>INSERT INTO DIM_PESSOA&#xd;&#xa;SELECT 0, &#x27;0&#x27;,	&#x27;S&#x2f;N&#x27;,	&#x27;S&#x2f;N&#x27;,	&#x27;S&#x2f;N&#x27;,	&#x27;S&#x2f;N&#x27;,	&#x27;S&#x2f;N&#x27;,	&#x27;S&#x2f;N&#x27;,	&#x27;S&#x2f;N&#x27;,	&#x27;S&#x2f;N&#x27;,	&#x27;S&#x2f;N&#x27;,	&#x27;S&#x2f;N&#x27;,	&#x27;VENDEDOR&#x27;&#xd;&#xa;WHERE&#xd;&#xa;    NOT EXISTS &#x28;&#xd;&#xa;        SELECT &#x2a; FROM DIM_PESSOA WHERE pes_codcliente &#x3d; 0&#xd;&#xa;   &#x29;&#x3b;</sql>
+    <sql>INSERT INTO DIM_PESSOA&#xd;&#xa;    &#x28;PES_CODCLIENTE, PES_CODORIGEM, PES_NOME, PES_CPF, PES_CNPJ, PES_RUA, PES_BAIRRO, PES_CIDADE, PES_UF, PES_CEP, PES_SEXO, PES_TPCLIENTE&#x29;&#xd;&#xa;SELECT -1, &#x27;S&#x2f;N&#x27;, &#x27;S&#x2f;N&#x27;, &#x27;S&#x2f;N&#x27;, &#x27;S&#x2f;N&#x27;, &#x27;S&#x2f;N&#x27;, &#x27;S&#x2f;N&#x27;, &#x27;S&#x2f;N&#x27;, &#x27;S&#x2f;N&#x27;, &#x27;S&#x2f;N&#x27;, &#x27;S&#x2f;N&#x27;, &#x27;S&#x2f;N&#x27;&#xd;&#xa;WHERE&#xd;&#xa;    NOT EXISTS &#x28;&#xd;&#xa;        SELECT PES_CODCLIENTE FROM DIM_PESSOA WHERE PES_CODCLIENTE &#x3d; -1&#xd;&#xa;    &#x29;&#x3b;</sql>
     <set_params>N</set_params>
     <insert_field/>
     <update_field/>
@@ -170,34 +166,8 @@
     </arguments>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>784</xloc>
-      <yloc>336</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>PRE VENDAS</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>uni7</connection>
-    <sql>SELECT FAT_LOJA, FAT.FAT_CODPES CLIENTE,&#xd;&#xa;		VENDEDOR.FAT_CODPES VENDEDOR, &#xd;&#xa;		FAT_DET.IFT_ITEM, FAT.FAT_NUMFAT, FAT.FAT_TIPPAG, &#xd;&#xa;		FAT.FAT_FORPAG,&#xd;&#xa;		FAT_DET.IFT_QUANTPED, &#xd;&#xa;		&#x28;FAT_DET.IFT_VALOR &#x2a; FAT_DET.IFT_QUANTPED&#x29; VALOR_TOTAL,&#xd;&#xa;		&#x28;&#x28;FAT_DET.IFT_VALOR &#x2a; FAT_DET.IFT_QUANTPED&#x29; - &#x28;FAT_DET.IFT_CUSTITM &#x2a; FAT_DET.IFT_QUANTPED&#x29;&#x29; LUCRO &#xd;&#xa;FROM FATURA	FAT&#xd;&#xa;	INNER JOIN LOJA LJ &#xd;&#xa;		ON LJ.LOJ_CODLOJ &#x3d; FAT.FAT_LOJA&#xd;&#xa;	left JOIN &#x28;SELECT FAT.FAT_CODPES &#xd;&#xa;				FROM FATURA FAT&#xd;&#xa;				WHERE FAT_CODPES IN &#x28;&#xd;&#xa;									SELECT PESSOA_TIPO.TPT_CODPES &#xd;&#xa;									FROM TAB_TIPO_PES&#xd;&#xa;										INNER JOIN PESSOA_TIPO&#xd;&#xa;											ON TAB_TIPO_PES.TIP_CODTPES &#x3d; PESSOA_TIPO.TPT_CODTPES&#xd;&#xa;										WHERE CAST&#x28;TPT_CODTPES AS INTEGER&#x29; &#x3d; 3&#x29;&#x29; VENDEDOR&#xd;&#xa;		ON VENDEDOR.FAT_CODPES &#x3d; FAT.FAT_CODPES	&#xd;&#xa;	INNER JOIN ITEM_FATURA FAT_DET &#xd;&#xa;		ON FAT_DET.IFT_NUMFAT &#x3d; FAT.FAT_NUMFAT&#xd;&#xa;	INNER JOIN TAB_TIPO_PAG TP_PGTO &#xd;&#xa;		ON FAT.FAT_TIPPAG &#x3d; TP_PGTO.TPG_TIPPAG&#xd;&#xa;	INNER JOIN TAB_FORMA_PAG FRM_PGTO&#xd;&#xa;		ON FRM_PGTO.FPG_FORPAG &#x3d; FAT.FAT_FORPAG&#xd;&#xa;	--WHERE FAT.FAT_NUMFAT &#x3d;  &#x27;00008297&#x27;&#xd;&#xa;	ORDER BY FAT.FAT_NUMFAT&#xd;&#xa;	--GROUP BY FAT.FAT_LOJA, FAT.FAT_CODPES, VENDEDOR.PES_CODPES, FAT_DET.IFT_ITEM, FAT.FAT_NUMFAT, FAT.FAT_TIPPAG, FAT.FAT_FORPAG&#xd;&#xa;	&#xd;&#xa;</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>80</xloc>
-      <yloc>624</yloc>
+      <xloc>960</xloc>
+      <yloc>416</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -214,7 +184,7 @@
            <schema_name/>
            </partitioning>
     <connection>uni7</connection>
-    <sql>SELECT fat_numfat, fat_statusnfe from fatura</sql>
+    <sql>SELECT FAT_NUMFAT, FAT_SITFAT, FAT_LOJA FROM FATURA&#xd;&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -222,8 +192,8 @@
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>80</xloc>
-      <yloc>144</yloc>
+      <xloc>96</xloc>
+      <yloc>192</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -248,76 +218,8 @@
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>80</xloc>
-      <yloc>240</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>If field value is null</name>
-    <type>IfNull</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-      <replaceAllByValue/>
-      <replaceAllMask/>
-      <selectFields>Y</selectFields>
-      <selectValuesType>N</selectValuesType>
-      <setEmptyStringAll>N</setEmptyStringAll>
-    <valuetypes>
-      </valuetypes>
-    <fields>
-      <field>
-        <name>fat_situacao</name>
-        <value>DESCONHECIDA</value>
-        <mask/>
-        <set_empty_string>N</set_empty_string>
-        </field>
-      </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>512</xloc>
-      <yloc>144</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>If field value is null 2</name>
-    <type>IfNull</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-      <replaceAllByValue/>
-      <replaceAllMask/>
-      <selectFields>Y</selectFields>
-      <selectValuesType>N</selectValuesType>
-      <setEmptyStringAll>N</setEmptyStringAll>
-    <valuetypes>
-      </valuetypes>
-    <fields>
-      <field>
-        <name>COD_VENDEDOR</name>
-        <value>S&#x2f;N</value>
-        <mask/>
-        <set_empty_string>N</set_empty_string>
-        </field>
-      </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>368</xloc>
-      <yloc>624</yloc>
+      <xloc>96</xloc>
+      <yloc>304</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -362,8 +264,578 @@
       </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>384</xloc>
-      <yloc>336</yloc>
+      <xloc>416</xloc>
+      <yloc>416</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>If field value is null 2 2 2</name>
+    <type>IfNull</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <replaceAllByValue/>
+      <replaceAllMask/>
+      <selectFields>Y</selectFields>
+      <selectValuesType>N</selectValuesType>
+      <setEmptyStringAll>N</setEmptyStringAll>
+    <valuetypes>
+      </valuetypes>
+    <fields>
+      <field>
+        <name>prod_marca</name>
+        <value>S&#x2f;N</value>
+        <mask/>
+        <set_empty_string>N</set_empty_string>
+        </field>
+      <field>
+        <name>prod_embalagem</name>
+        <value>S&#x2f;N</value>
+        <mask/>
+        <set_empty_string>N</set_empty_string>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>416</xloc>
+      <yloc>528</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Insert &#x2f; Update</name>
+    <type>InsertUpdate</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>bi_uni7</connection>
+    <commit>100</commit>
+    <update_bypassed>N</update_bypassed>
+    <lookup>
+      <schema/>
+      <table>dim_loja</table>
+      <key>
+        <name>loja_codorigem</name>
+        <field>loja_codorigem</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>loja_cnpj</name>
+        <field>loja_cnpj</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>loja_endereco</name>
+        <field>loja_endereco</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>loja_telefone</name>
+        <field>loja_telefone</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>loja_numero</name>
+        <field>loja_numero</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>loja_bairro</name>
+        <field>loja_bairro</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>loja_uf</name>
+        <field>loja_uf</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>loja_cidade</name>
+        <field>loja_cidade</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>loja_cep</name>
+        <field>loja_cep</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>loja_codorigem</name>
+        <rename>loja_codorigem</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>loja_cnpj</name>
+        <rename>loja_cnpj</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>loja_endereco</name>
+        <rename>loja_endereco</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>loja_telefone</name>
+        <rename>loja_telefone</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>loja_numero</name>
+        <rename>loja_numero</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>loja_bairro</name>
+        <rename>loja_bairro</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>loja_uf</name>
+        <rename>loja_uf</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>loja_cidade</name>
+        <rename>loja_cidade</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>loja_cep</name>
+        <rename>loja_cep</rename>
+        <update>Y</update>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>768</xloc>
+      <yloc>96</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Insert &#x2f; Update 2</name>
+    <type>InsertUpdate</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>bi_uni7</connection>
+    <commit>100</commit>
+    <update_bypassed>N</update_bypassed>
+    <lookup>
+      <schema/>
+      <table>dim_fatura</table>
+      <key>
+        <name>fat_numerofatura</name>
+        <field>fat_numeronota</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>fat_situacaofatura</name>
+        <field>fat_situacaofatura</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>fat_loja</name>
+        <field>fat_loja</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>fat_numeronota</name>
+        <rename>fat_numerofatura</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>fat_situacaofatura</name>
+        <rename>fat_situacaofatura</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>fat_loja</name>
+        <rename>fat_loja</rename>
+        <update>Y</update>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>768</xloc>
+      <yloc>192</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Insert &#x2f; Update 3</name>
+    <type>InsertUpdate</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>bi_uni7</connection>
+    <commit>100</commit>
+    <update_bypassed>N</update_bypassed>
+    <lookup>
+      <schema/>
+      <table>dim_forma_pgto</table>
+      <key>
+        <name>cod_formpgto</name>
+        <field>cod_formpgto</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>fp_qt_parcelas</name>
+        <field>fp_qt_parcelas</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>descricao</name>
+        <field>descricao</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>cod_formpgto</name>
+        <rename>cod_formpgto</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>fp_qt_parcelas</name>
+        <rename>fp_qt_parcelas</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>descricao</name>
+        <rename>descricao</rename>
+        <update>Y</update>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>768</xloc>
+      <yloc>304</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Insert &#x2f; Update 4</name>
+    <type>InsertUpdate</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>bi_uni7</connection>
+    <commit>100</commit>
+    <update_bypassed>N</update_bypassed>
+    <lookup>
+      <schema/>
+      <table>dim_pessoa</table>
+      <key>
+        <name>pes_codorigem</name>
+        <field>pes_codorigem</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>pes_nome</name>
+        <field>pes_nome</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>pes_cpf</name>
+        <field>pes_cpf</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>pes_cnpj</name>
+        <field>pes_cnpj</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>pes_rua</name>
+        <field>pes_rua</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>pes_bairro</name>
+        <field>pes_bairro</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>pes_cidade</name>
+        <field>pes_cidade</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>pes_uf</name>
+        <field>pes_uf</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>pes_cep</name>
+        <field>pes_cep</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>pes_sexo</name>
+        <field>pes_sexo</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>pes_tpcliente</name>
+        <field>pes_tpcliente</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>pes_codorigem</name>
+        <rename>pes_codorigem</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>pes_nome</name>
+        <rename>pes_nome</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>pes_cpf</name>
+        <rename>pes_cpf</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>pes_cnpj</name>
+        <rename>pes_cnpj</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>pes_rua</name>
+        <rename>pes_rua</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>pes_bairro</name>
+        <rename>pes_bairro</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>pes_cidade</name>
+        <rename>pes_cidade</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>pes_uf</name>
+        <rename>pes_uf</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>pes_cep</name>
+        <rename>pes_cep</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>pes_sexo</name>
+        <rename>pes_sexo</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>pes_tpcliente</name>
+        <rename>pes_tpcliente</rename>
+        <update>Y</update>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>768</xloc>
+      <yloc>416</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Insert &#x2f; Update 5</name>
+    <type>InsertUpdate</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>bi_uni7</connection>
+    <commit>100</commit>
+    <update_bypassed>N</update_bypassed>
+    <lookup>
+      <schema/>
+      <table>dim_produto</table>
+      <key>
+        <name>prod_codorigem</name>
+        <field>prod_codorigem</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>prod_descprod</name>
+        <field>prod_descprod</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>prod_embalagem</name>
+        <field>prod_embalagem</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>prod_qt_embalagem</name>
+        <field>prod_qt_embalagem</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>prod_marca</name>
+        <field>prod_marca</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>prod_grupo</name>
+        <field>prod_grupo</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>prod_codorigem</name>
+        <rename>prod_codorigem</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>prod_descprod</name>
+        <rename>prod_descprod</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>prod_embalagem</name>
+        <rename>prod_embalagem</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>prod_qt_embalagem</name>
+        <rename>prod_qt_embalagem</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>prod_marca</name>
+        <rename>prod_marca</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>prod_grupo</name>
+        <rename>prod_grupo</rename>
+        <update>Y</update>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>768</xloc>
+      <yloc>528</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Insert &#x2f; Update 6</name>
+    <type>InsertUpdate</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>bi_uni7</connection>
+    <commit>100</commit>
+    <update_bypassed>N</update_bypassed>
+    <lookup>
+      <schema/>
+      <table>dim_tipo_pagamento</table>
+      <key>
+        <name>COD_TIPOPGTO</name>
+        <field>COD_TIPOPGTO</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>TP_DESCRICAO</name>
+        <field>TP_DESCRICAO</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>COD_TIPOPGTO</name>
+        <rename>COD_TIPOPGTO</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>TP_DESCRICAO</name>
+        <rename>TP_DESCRICAO</rename>
+        <update>Y</update>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>768</xloc>
+      <yloc>640</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -388,8 +860,8 @@
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>80</xloc>
-      <yloc>48</yloc>
+      <xloc>96</xloc>
+      <yloc>96</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -406,7 +878,7 @@
            <schema_name/>
            </partitioning>
     <connection>uni7</connection>
-    <sql>SELECT PES_CODPES, PES_NOME, &#xd;&#xa;		PES_CPF, PES_CGC, PES_ENDERE, &#xd;&#xa;		PES_BAIRRO, PES_CIDADE, &#xd;&#xa;		PES_UF, PES_CEP, &#xd;&#xa;		PES_SEXO, PES_FISJUR, TTP.TIP_NOMTPES &#xd;&#xa;FROM PESSOA PES&#xd;&#xa;INNER JOIN PESSOA_TIPO PT&#xd;&#xa;	ON PES.PES_CODPES &#x3d; PT.TPT_CODPES&#xd;&#xa;INNER JOIN TAB_TIPO_PES TTP&#xd;&#xa;	ON PT.TPT_CODTPES &#x3d; TTP.TIP_CODTPES</sql>
+    <sql>SELECT PES_CODPES, PES_NOME, &#xd;&#xa;		PES_CPF, PES_CGC, PES_ENDERE, &#xd;&#xa;		PES_BAIRRO, PES_CIDADE, &#xd;&#xa;		PES_UF, PES_CEP, &#xd;&#xa;		PES_SEXO, PES_FISJUR&#xd;&#xa;FROM PESSOA PES&#xd;&#xa;INNER JOIN PESSOA_TIPO PT&#xd;&#xa;	ON PES.PES_CODPES &#x3d; PT.TPT_CODPES&#xd;&#xa;INNER JOIN TAB_TIPO_PES TTP&#xd;&#xa;	ON PT.TPT_CODTPES &#x3d; TTP.TIP_CODTPES</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -414,8 +886,8 @@
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>80</xloc>
-      <yloc>336</yloc>
+      <xloc>96</xloc>
+      <yloc>416</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -440,8 +912,8 @@
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>80</xloc>
-      <yloc>432</yloc>
+      <xloc>96</xloc>
+      <yloc>528</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -459,55 +931,22 @@
            </partitioning>
     <fields>
       <field>
-        <in_stream_name>fat_situacao</in_stream_name>
+        <in_stream_name>fat_situacaofatura</in_stream_name>
         <out_stream_name/>
         <use_regex>no</use_regex>
-        <replace_string>AUTOR</replace_string>
-        <replace_by_string>AUTORIZADA</replace_by_string>
+        <replace_string>N</replace_string>
+        <replace_by_string>Normal</replace_by_string>
         <set_empty_string>N</set_empty_string>
         <replace_field_by_string/>
         <whole_word>no</whole_word>
         <case_sensitive>no</case_sensitive>
       </field>
       <field>
-        <in_stream_name>fat_situacao</in_stream_name>
+        <in_stream_name>fat_situacaofatura</in_stream_name>
         <out_stream_name/>
         <use_regex>no</use_regex>
-        <replace_string>RECEB</replace_string>
-        <replace_by_string>RECEBIDA</replace_by_string>
-        <set_empty_string>N</set_empty_string>
-        <replace_field_by_string/>
-        <whole_word>no</whole_word>
-        <case_sensitive>no</case_sensitive>
-      </field>
-      <field>
-        <in_stream_name>fat_situacao</in_stream_name>
-        <out_stream_name/>
-        <use_regex>no</use_regex>
-        <replace_string>PENDE</replace_string>
-        <replace_by_string>PENDENTE</replace_by_string>
-        <set_empty_string>N</set_empty_string>
-        <replace_field_by_string/>
-        <whole_word>no</whole_word>
-        <case_sensitive>no</case_sensitive>
-      </field>
-      <field>
-        <in_stream_name>fat_situacao</in_stream_name>
-        <out_stream_name/>
-        <use_regex>no</use_regex>
-        <replace_string>CANCE</replace_string>
-        <replace_by_string>CANCELADA</replace_by_string>
-        <set_empty_string>N</set_empty_string>
-        <replace_field_by_string/>
-        <whole_word>no</whole_word>
-        <case_sensitive>no</case_sensitive>
-      </field>
-      <field>
-        <in_stream_name>fat_situacao</in_stream_name>
-        <out_stream_name/>
-        <use_regex>no</use_regex>
-        <replace_string>REJEI</replace_string>
-        <replace_by_string>REJEITADA</replace_by_string>
+        <replace_string>C</replace_string>
+        <replace_by_string>Cancelada</replace_by_string>
         <set_empty_string>N</set_empty_string>
         <replace_field_by_string/>
         <whole_word>no</whole_word>
@@ -516,8 +955,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>368</xloc>
-      <yloc>144</yloc>
+      <xloc>400</xloc>
+      <yloc>192</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -680,8 +1119,8 @@
         <storage_type/>
       </meta>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>224</xloc>
-      <yloc>48</yloc>
+      <xloc>240</xloc>
+      <yloc>96</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -699,7 +1138,7 @@
            </partitioning>
     <fields>        <select_unspecified>N</select_unspecified>
       <meta>        <name>fat_numfat</name>
-        <rename>fat_numeronota</rename>
+        <rename>fat_numerofatura</rename>
         <type>String</type>
         <length>8</length>
         <precision>-2</precision>
@@ -713,8 +1152,8 @@
         <grouping_symbol/>
         <currency_symbol/>
         <storage_type/>
-      </meta>      <meta>        <name>fat_statusnfe</name>
-        <rename>fat_situacao</rename>
+      </meta>      <meta>        <name>fat_sitfat</name>
+        <rename>fat_situacaofatura</rename>
         <type>String</type>
         <length>10</length>
         <precision>-2</precision>
@@ -728,10 +1167,25 @@
         <grouping_symbol/>
         <currency_symbol/>
         <storage_type/>
+      </meta>      <meta>        <name>fat_loja</name>
+        <rename>fat_loja</rename>
+        <type>None</type>
+        <length>5</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
       </meta>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>224</xloc>
-      <yloc>144</yloc>
+      <xloc>240</xloc>
+      <yloc>192</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -795,8 +1249,8 @@
         <storage_type/>
       </meta>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>224</xloc>
-      <yloc>240</yloc>
+      <xloc>240</xloc>
+      <yloc>304</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -905,8 +1359,8 @@
         <storage_type/>
       </meta>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>224</xloc>
-      <yloc>432</yloc>
+      <xloc>240</xloc>
+      <yloc>528</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -955,8 +1409,8 @@
         <storage_type/>
       </meta>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>224</xloc>
-      <yloc>528</yloc>
+      <xloc>240</xloc>
+      <yloc>640</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1138,195 +1592,10 @@
         <grouping_symbol/>
         <currency_symbol/>
         <storage_type/>
-      </meta>      <meta>        <name>tip_nomtpes</name>
-        <rename>tp_perfil</rename>
-        <type>String</type>
-        <length>20</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
       </meta>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>224</xloc>
-      <yloc>336</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Select values 7</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>        <select_unspecified>N</select_unspecified>
-      <meta>        <name>fat_loja</name>
-        <rename>LOJA</rename>
-        <type>String</type>
-        <length>5</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>cliente</name>
-        <rename>COD_CLIENTE</rename>
-        <type>String</type>
-        <length>5</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>vendedor</name>
-        <rename>COD_VENDEDOR</rename>
-        <type>String</type>
-        <length>5</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>ift_item</name>
-        <rename>ITEM</rename>
-        <type>String</type>
-        <length>10</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>fat_numfat</name>
-        <rename>NUMERO_FATURA</rename>
-        <type>String</type>
-        <length>8</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>fat_tippag</name>
-        <rename>TP_PGTO</rename>
-        <type>String</type>
-        <length>5</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>fat_forpag</name>
-        <rename>FORMA_PGTO</rename>
-        <type>String</type>
-        <length>5</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>ift_quantped</name>
-        <rename>QUANTIDADE</rename>
-        <type>Number</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>valor_total</name>
-        <rename>VALOR_TOTAL</rename>
-        <type>Number</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask>&#x23;.&#x23;</conversion_mask>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>lucro</name>
-        <rename>LUCRO</rename>
-        <type>Number</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask>&#x23;.&#x23;</conversion_mask>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>    </fields>     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>224</xloc>
-      <yloc>624</yloc>
+      <xloc>240</xloc>
+      <yloc>416</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1351,314 +1620,8 @@
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>80</xloc>
-      <yloc>528</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Table output</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>bi_uni7</connection>
-    <schema/>
-    <table>dim_loja</table>
-    <commit>1000</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>N</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>368</xloc>
-      <yloc>48</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Table output 2</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>bi_uni7</connection>
-    <schema/>
-    <table>dim_fatura</table>
-    <commit>1000</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>N</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>656</xloc>
-      <yloc>144</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Table output 3</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>bi_uni7</connection>
-    <schema/>
-    <table>dim_forma_pgto</table>
-    <commit>1000</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>N</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>368</xloc>
-      <yloc>240</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Table output 4</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>bi_uni7</connection>
-    <schema/>
-    <table>dim_pessoa</table>
-    <commit>1000</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>N</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>560</xloc>
-      <yloc>336</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Table output 5</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>bi_uni7</connection>
-    <schema/>
-    <table>dim_tipo_pagamento</table>
-    <commit>1000</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>N</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>368</xloc>
-      <yloc>528</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Table output 6</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>bi_uni7</connection>
-    <schema/>
-    <table>pre_fato_vendas</table>
-    <commit>1000</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>N</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>528</xloc>
-      <yloc>624</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Table output 7</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>bi_uni7</connection>
-    <schema/>
-    <table>dim_produto</table>
-    <commit>1000</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>N</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>560</xloc>
-      <yloc>432</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>If field value is null 2 2 2</name>
-    <type>IfNull</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-      <replaceAllByValue/>
-      <replaceAllMask/>
-      <selectFields>Y</selectFields>
-      <selectValuesType>N</selectValuesType>
-      <setEmptyStringAll>N</setEmptyStringAll>
-    <valuetypes>
-      </valuetypes>
-    <fields>
-      <field>
-        <name>prod_marca</name>
-        <value>S&#x2f;N</value>
-        <mask/>
-        <set_empty_string>N</set_empty_string>
-        </field>
-      <field>
-        <name>prod_embalagem</name>
-        <value>S&#x2f;N</value>
-        <mask/>
-        <set_empty_string>N</set_empty_string>
-        </field>
-      </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>384</xloc>
-      <yloc>432</yloc>
+      <xloc>96</xloc>
+      <yloc>640</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

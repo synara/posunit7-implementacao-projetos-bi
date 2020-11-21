@@ -3,6 +3,7 @@ CREATE TABLE dim_fatura
     fat_codfatura SERIAL,
     fat_numeronota character varying(8) COLLATE pg_catalog."default",
     fat_situacao character varying(15) COLLATE pg_catalog."default",
+    fat_loja character varying(5) COLLATE pg_catalog."default",
     CONSTRAINT dim_fatura_pkey PRIMARY KEY (fat_codfatura)
 )
 
@@ -18,6 +19,7 @@ CREATE TABLE dim_forma_pgto
 CREATE TABLE dim_loja
 (
     loja_codloja SERIAL,
+    loja_descricao character varying(50) COLLATE pg_catalog."default",	
     loja_codorigem character varying(5) COLLATE pg_catalog."default",
     loja_uf character varying(2) COLLATE pg_catalog."default",
     loja_endereco character varying(50) COLLATE pg_catalog."default",
@@ -38,7 +40,7 @@ CREATE TABLE dim_pessoa
     pes_cpf character varying(20) COLLATE pg_catalog."default",
     pes_cnpj character varying(20) COLLATE pg_catalog."default",
     pes_rua character varying(50) COLLATE pg_catalog."default",
-    pes_bairro character varying(5) COLLATE pg_catalog."default",
+    pes_bairro character varying(50) COLLATE pg_catalog."default",
     pes_cidade character varying(50) COLLATE pg_catalog."default",
     pes_uf character varying(8) COLLATE pg_catalog."default",
     pes_cep character varying(19) COLLATE pg_catalog."default",
@@ -67,6 +69,7 @@ CREATE TABLE dim_tipo_pagamento
     tp_descricao character varying(25) COLLATE pg_catalog."default",
     CONSTRAINT dim_tipo_pagamento_pkey PRIMARY KEY (tp_codtppgto)
 )
+
 
 CREATE TABLE fato_vendas
 (
