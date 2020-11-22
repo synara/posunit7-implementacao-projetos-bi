@@ -1,8 +1,10 @@
+--SCRIPTS EM ORDEM DE CRIAÇAO DAS TABELAS
+
 CREATE TABLE dim_fatura
 (
     fat_codfatura SERIAL,
     fat_numeronota character varying(8) COLLATE pg_catalog."default",
-    fat_situacao character varying(15) COLLATE pg_catalog."default",
+    fat_situacaofatura character varying(10) COLLATE pg_catalog."default",
     fat_loja character varying(5) COLLATE pg_catalog."default",
     CONSTRAINT dim_fatura_pkey PRIMARY KEY (fat_codfatura)
 )
@@ -19,7 +21,7 @@ CREATE TABLE dim_forma_pgto
 CREATE TABLE dim_loja
 (
     loja_codloja SERIAL,
-    loja_descricao character varying(50) COLLATE pg_catalog."default",	
+    loja_nome character varying(30) COLLATE pg_catalog."default",
     loja_codorigem character varying(5) COLLATE pg_catalog."default",
     loja_uf character varying(2) COLLATE pg_catalog."default",
     loja_endereco character varying(50) COLLATE pg_catalog."default",
@@ -34,7 +36,7 @@ CREATE TABLE dim_loja
 
 CREATE TABLE dim_pessoa
 (
-    pes_codcliente SERIAL,
+    pes_codcliente integer SERIAL,
     pes_codorigem character varying(5) COLLATE pg_catalog."default",
     pes_nome character varying(50) COLLATE pg_catalog."default",
     pes_cpf character varying(20) COLLATE pg_catalog."default",
@@ -46,7 +48,6 @@ CREATE TABLE dim_pessoa
     pes_cep character varying(19) COLLATE pg_catalog."default",
     pes_sexo character varying(12) COLLATE pg_catalog."default",
     pes_tpcliente character varying(8) COLLATE pg_catalog."default",
-    tp_perfil character varying(20) COLLATE pg_catalog."default"
     CONSTRAINT dim_pessoa_pkey PRIMARY KEY (pes_codcliente)
 )
 
@@ -60,6 +61,36 @@ CREATE TABLE dim_produto
     prod_marca character varying(20) COLLATE pg_catalog."default",
     prod_grupo character varying(60) COLLATE pg_catalog."default",
     CONSTRAINT dim_produto_pkey PRIMARY KEY (prod_codproduto)
+)
+
+CREATE TABLE dim_tempo
+(
+    data_sk integer NOT NULL,
+    ano_numero smallint,
+    mes_numero smallint,
+    dia_do_ano_numero smallint,
+    dia_do_mes_numero smallint,
+    dia_da_semana_numero smallint,
+    semana_do_ano_numero smallint,
+    dia_nome character varying(30) COLLATE pg_catalog."default",
+    mes_nome character varying(30) COLLATE pg_catalog."default",
+    trimestre_numero double precision,
+    trimestre_nome character varying(2) COLLATE pg_catalog."default",
+    ano_trimestre_nome character varying(32) COLLATE pg_catalog."default",
+    fimdesemana_ind character varying(1) COLLATE pg_catalog."default",
+    dias_no_mes_qtd smallint,
+    dia_desc text COLLATE pg_catalog."default",
+    semana_sk double precision,
+    dia_data timestamp without time zone,
+    semana_nome character varying(32) COLLATE pg_catalog."default",
+    semana_do_mes_numero double precision,
+    semana_do_mes_nome text COLLATE pg_catalog."default",
+    ano_sk double precision,
+    mes_sk double precision,
+    trimestre_sk double precision,
+    dia_da_semana_ordem_nome character varying(60) COLLATE pg_catalog."default",
+    ano_ordem_numero character varying(4) COLLATE pg_catalog."default",
+    CONSTRAINT dim_tempo_pkey PRIMARY KEY (data_sk)
 )
 
 CREATE TABLE dim_tipo_pagamento
@@ -80,8 +111,10 @@ CREATE TABLE fato_vendas
     sk_codfatura integer,
     sk_codtppgto integer,
     sk_codformpgto integer,
+    sk_data integer,
     valor_venda numeric(18,2),
     quantidade_vendida integer,
+    custo numeric(18,2),
     lucro numeric(18,2),
     CONSTRAINT fato_vendas_sk_codcliente_fkey FOREIGN KEY (sk_codcliente)
         REFERENCES public.dim_pessoa (pes_codcliente) MATCH SIMPLE
@@ -109,6 +142,10 @@ CREATE TABLE fato_vendas
         ON DELETE NO ACTION,
     CONSTRAINT fato_vendas_sk_codvendedor_fkey FOREIGN KEY (sk_codvendedor)
         REFERENCES public.dim_pessoa (pes_codcliente) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fato_vendas_sk_data_fkey FOREIGN KEY (sk_data)
+        REFERENCES public.dim_tempo (data_sk) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
 )

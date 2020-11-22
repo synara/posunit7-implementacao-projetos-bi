@@ -137,8 +137,10 @@
   <hop> <from>DIM TIPO PGTO</from><to>Stream lookup 6</to><enabled>Y</enabled> </hop>
   <hop> <from>Stream lookup 6</from><to>Stream lookup 7</to><enabled>Y</enabled> </hop>
   <hop> <from>DIM FORMA PGTO</from><to>Stream lookup 7</to><enabled>Y</enabled> </hop>
-  <hop> <from>Stream lookup 7</from><to>Select values</to><enabled>Y</enabled> </hop>
   <hop> <from>Stream lookup</from><to>Stream lookup 2</to><enabled>Y</enabled> </hop>
+  <hop> <from>Stream lookup 7</from><to>Stream lookup 8</to><enabled>Y</enabled> </hop>
+  <hop> <from>DIM TEMPO</from><to>Stream lookup 8</to><enabled>Y</enabled> </hop>
+  <hop> <from>Stream lookup 8</from><to>Select values</to><enabled>Y</enabled> </hop>
   <hop> <from>Select values</from><to>Insert &#x2f; Update</to><enabled>Y</enabled> </hop>
   </order>
   <step>
@@ -161,8 +163,8 @@
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>224</xloc>
-      <yloc>448</yloc>
+      <xloc>144</xloc>
+      <yloc>464</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -187,8 +189,34 @@
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>704</xloc>
-      <yloc>448</yloc>
+      <xloc>624</xloc>
+      <yloc>464</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>DIM FORMA PGTO</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>bi_uni7</connection>
+    <sql>SELECT &#x2a; FROM DIM_FORMA_PGTO&#xd;&#xa;</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1088</xloc>
+      <yloc>464</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -213,8 +241,60 @@
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>544</xloc>
-      <yloc>448</yloc>
+      <xloc>464</xloc>
+      <yloc>464</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>DIM PRODUTO</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>bi_uni7</connection>
+    <sql>SELECT &#x2a; FROM DIM_PRODUTO</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>784</xloc>
+      <yloc>464</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>DIM TIPO PGTO</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>bi_uni7</connection>
+    <sql>SELECT &#x2a; FROM DIM_TIPO_PAGAMENTO</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>944</xloc>
+      <yloc>464</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -239,8 +319,8 @@
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>400</xloc>
-      <yloc>448</yloc>
+      <xloc>320</xloc>
+      <yloc>464</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -279,15 +359,15 @@
       </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>400</xloc>
-      <yloc>192</yloc>
+      <xloc>320</xloc>
+      <yloc>208</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Stream lookup</name>
-    <type>StreamLookup</type>
+    <name>Insert &#x2f; Update</name>
+    <type>InsertUpdate</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -296,351 +376,149 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <from>DIM CLIENTE</from>
-    <input_sorted>N</input_sorted>
-    <preserve_memory>Y</preserve_memory>
-    <sorted_list>N</sorted_list>
-    <integer_pair>N</integer_pair>
+    <connection>bi_uni7</connection>
+    <commit>100</commit>
+    <update_bypassed>N</update_bypassed>
     <lookup>
+      <schema/>
+      <table>fato_vendas</table>
       <key>
-        <name>pes_codpes</name>
-        <field>pes_codorigem</field>
+        <name>quantidade_vendida</name>
+        <field>quantidade_vendida</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>valor_venda</name>
+        <field>valor_venda</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>custo</name>
+        <field>custo</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>lucro</name>
+        <field>lucro</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>sk_codcliente</name>
+        <field>sk_codcliente</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>sk_codvendedor</name>
+        <field>sk_codvendedor</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>sk_codloja</name>
+        <field>sk_codloja</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>sk_codfatura</name>
+        <field>sk_codfatura</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>sk_codproduto</name>
+        <field>sk_codproduto</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>sk_codtppgto</name>
+        <field>sk_codtppgto</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>sk_codformpgto</name>
+        <field>sk_codformpgto</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>sk_data</name>
+        <field>sk_data</field>
+        <condition>&#x3d;</condition>
+        <name2/>
       </key>
       <value>
-        <name>pes_codcliente</name>
+        <name>quantidade_vendida</name>
+        <rename>quantidade_vendida</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>valor_venda</name>
+        <rename>valor_venda</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>custo</name>
+        <rename>custo</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>lucro</name>
+        <rename>lucro</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>sk_codcliente</name>
         <rename>sk_codcliente</rename>
-        <default/>
-        <type>None</type>
+        <update>Y</update>
       </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>224</xloc>
-      <yloc>304</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Stream lookup 2</name>
-    <type>StreamLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <from>DIM VENDEDOR</from>
-    <input_sorted>N</input_sorted>
-    <preserve_memory>Y</preserve_memory>
-    <sorted_list>N</sorted_list>
-    <integer_pair>N</integer_pair>
-    <lookup>
-      <key>
-        <name>fat_codven</name>
-        <field>pes_codorigem</field>
-      </key>
       <value>
-        <name>pes_codcliente</name>
+        <name>sk_codvendedor</name>
         <rename>sk_codvendedor</rename>
-        <default/>
-        <type>Integer</type>
+        <update>Y</update>
       </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>400</xloc>
-      <yloc>304</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Stream lookup 3</name>
-    <type>StreamLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <from>DIM LOJA</from>
-    <input_sorted>N</input_sorted>
-    <preserve_memory>Y</preserve_memory>
-    <sorted_list>N</sorted_list>
-    <integer_pair>N</integer_pair>
-    <lookup>
-      <key>
-        <name>fat_loja</name>
-        <field>loja_codorigem</field>
-      </key>
       <value>
-        <name>loja_codloja</name>
+        <name>sk_codloja</name>
         <rename>sk_codloja</rename>
-        <default/>
-        <type>Integer</type>
+        <update>Y</update>
       </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>544</xloc>
-      <yloc>304</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Stream lookup 4</name>
-    <type>StreamLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <from>DIM FATURA</from>
-    <input_sorted>N</input_sorted>
-    <preserve_memory>Y</preserve_memory>
-    <sorted_list>N</sorted_list>
-    <integer_pair>N</integer_pair>
-    <lookup>
-      <key>
-        <name>fat_numfat</name>
-        <field>fat_numeronota</field>
-      </key>
-      <key>
-        <name>fat_loja</name>
-        <field>fat_loja</field>
-      </key>
       <value>
-        <name>fat_codfatura</name>
+        <name>sk_codfatura</name>
         <rename>sk_codfatura</rename>
-        <default/>
-        <type>Integer</type>
+        <update>Y</update>
       </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>704</xloc>
-      <yloc>304</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Table input</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>uni7</connection>
-    <sql>SELECT  FAT.FAT_LOJA, &#xd;&#xa;		PES.PES_CODPES,&#xd;&#xa;		FAT.FAT_CODVEN, &#xd;&#xa;		FAT_DET.IFT_ITEM, &#xd;&#xa;		FAT.FAT_NUMFAT, &#xd;&#xa;		FAT.FAT_TIPPAG, &#xd;&#xa;		FAT.FAT_FORPAG,&#xd;&#xa;		FAT_DET.IFT_QUANTFATC, &#xd;&#xa;		&#x28;FAT_DET.IFT_VALOR &#x2a; FAT_DET.IFT_QUANTFATC&#x29; VALOR_VENDA,&#xd;&#xa;		&#x28;FAT_DET.IFT_CUSTITM &#x2a; FAT_DET.IFT_QUANTFATC&#x29; CUSTO,&#xd;&#xa;		&#x28;&#x28;FAT_DET.IFT_VALOR &#x2a; FAT_DET.IFT_QUANTFATC&#x29; - &#x28;FAT_DET.IFT_CUSTITM &#x2a; FAT_DET.IFT_QUANTFATC&#x29;&#x29; LUCRO &#xd;&#xa;FROM FATURA	FAT&#xd;&#xa;	INNER JOIN ITEM_FATURA FAT_DET &#xd;&#xa;		ON FAT_DET.IFT_NUMFAT &#x3d; FAT.FAT_NUMFAT&#xd;&#xa;		AND FAT_DET.IFT_UNDADM &#x3d; FAT.FAT_UNDADM&#xd;&#xa;		AND FAT.FAT_LOJA &#x3d; FAT_DET.IFT_LOJA&#xd;&#xa;		AND FAT_DET.ift_empresa &#x3d; FAT.fat_empresa&#xd;&#xa;	INNER JOIN TAB_TIPO_PAG TP_PGTO &#xd;&#xa;		ON FAT.FAT_TIPPAG &#x3d; TP_PGTO.TPG_TIPPAG&#xd;&#xa;	INNER JOIN TAB_FORMA_PAG FRM_PGTO&#xd;&#xa;		ON FRM_PGTO.FPG_FORPAG &#x3d; FAT.FAT_FORPAG&#xd;&#xa;	INNER JOIN TAB_OPERFISCAL TOF &#xd;&#xa;		ON TOF.TOF_CODOPF &#x3d; FAT.FAT_CODOPE&#xd;&#xa;	LEFT JOIN PESSOA PES&#xd;&#xa;		ON FAT.FAT_CODVEN &#x3d; PES.PES_CODPES&#xd;&#xa;ORDER BY FAT_NUMFAT, FAT_LOJA&#xd;&#xa;&#xd;&#xa;&#xd;&#xa;</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>112</xloc>
-      <yloc>304</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Stream lookup 5</name>
-    <type>StreamLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <from>DIM PRODUTO</from>
-    <input_sorted>N</input_sorted>
-    <preserve_memory>Y</preserve_memory>
-    <sorted_list>N</sorted_list>
-    <integer_pair>N</integer_pair>
-    <lookup>
-      <key>
-        <name>ift_item</name>
-        <field>prod_codorigem</field>
-      </key>
       <value>
-        <name>prod_codproduto</name>
+        <name>sk_codproduto</name>
         <rename>sk_codproduto</rename>
-        <default/>
-        <type>Integer</type>
+        <update>Y</update>
       </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>864</xloc>
-      <yloc>304</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>DIM PRODUTO</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>bi_uni7</connection>
-    <sql>SELECT &#x2a; FROM DIM_PRODUTO</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>864</xloc>
-      <yloc>448</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Stream lookup 6</name>
-    <type>StreamLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <from>DIM TIPO PGTO</from>
-    <input_sorted>N</input_sorted>
-    <preserve_memory>Y</preserve_memory>
-    <sorted_list>N</sorted_list>
-    <integer_pair>N</integer_pair>
-    <lookup>
-      <key>
-        <name>fat_tippag</name>
-        <field>cod_tipopgto</field>
-      </key>
       <value>
-        <name>tp_codtppgto</name>
+        <name>sk_codtppgto</name>
         <rename>sk_codtppgto</rename>
-        <default/>
-        <type>None</type>
+        <update>Y</update>
       </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1024</xloc>
-      <yloc>304</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>DIM TIPO PGTO</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>bi_uni7</connection>
-    <sql>SELECT &#x2a; FROM DIM_TIPO_PAGAMENTO</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1024</xloc>
-      <yloc>448</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Stream lookup 7</name>
-    <type>StreamLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <from>DIM FORMA PGTO</from>
-    <input_sorted>N</input_sorted>
-    <preserve_memory>Y</preserve_memory>
-    <sorted_list>N</sorted_list>
-    <integer_pair>N</integer_pair>
-    <lookup>
-      <key>
-        <name>fat_forpag</name>
-        <field>cod_formpgto</field>
-      </key>
       <value>
-        <name>fp_codformpgto</name>
+        <name>sk_codformpgto</name>
         <rename>sk_codformpgto</rename>
-        <default/>
-        <type>None</type>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>sk_data</name>
+        <rename>sk_data</rename>
+        <update>Y</update>
       </value>
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1168</xloc>
-      <yloc>304</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>DIM FORMA PGTO</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>bi_uni7</connection>
-    <sql>SELECT &#x2a; FROM DIM_FORMA_PGTO&#xd;&#xa;</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1168</xloc>
-      <yloc>448</yloc>
+      <xloc>1376</xloc>
+      <yloc>208</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -664,6 +542,7 @@
       </remove>      <remove>        <name>fat_numfat</name>
       </remove>      <remove>        <name>fat_tippag</name>
       </remove>      <remove>        <name>fat_forpag</name>
+      </remove>      <remove>        <name>data_sq</name>
       </remove>      <meta>        <name>sk_codloja</name>
         <rename>sk_codloja</rename>
         <type>Integer</type>
@@ -769,6 +648,21 @@
         <grouping_symbol/>
         <currency_symbol/>
         <storage_type/>
+      </meta>      <meta>        <name>sk_data</name>
+        <rename>sk_data</rename>
+        <type>Integer</type>
+        <length>8</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
       </meta>      <meta>        <name>valor_venda</name>
         <rename>valor_venda</rename>
         <type>Number</type>
@@ -831,15 +725,333 @@
         <storage_type/>
       </meta>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1312</xloc>
-      <yloc>304</yloc>
+      <xloc>1376</xloc>
+      <yloc>320</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Insert &#x2f; Update</name>
-    <type>InsertUpdate</type>
+    <name>Stream lookup</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>DIM CLIENTE</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>pes_codpes</name>
+        <field>pes_codorigem</field>
+      </key>
+      <value>
+        <name>pes_codcliente</name>
+        <rename>sk_codcliente</rename>
+        <default/>
+        <type>None</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>144</xloc>
+      <yloc>320</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Stream lookup 2</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>DIM VENDEDOR</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>fat_codven</name>
+        <field>pes_codorigem</field>
+      </key>
+      <value>
+        <name>pes_codcliente</name>
+        <rename>sk_codvendedor</rename>
+        <default/>
+        <type>Integer</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>320</xloc>
+      <yloc>320</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Stream lookup 3</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>DIM LOJA</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>fat_loja</name>
+        <field>loja_codorigem</field>
+      </key>
+      <value>
+        <name>loja_codloja</name>
+        <rename>sk_codloja</rename>
+        <default/>
+        <type>Integer</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>464</xloc>
+      <yloc>320</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Stream lookup 4</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>DIM FATURA</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>fat_numfat</name>
+        <field>fat_numeronota</field>
+      </key>
+      <key>
+        <name>fat_loja</name>
+        <field>fat_loja</field>
+      </key>
+      <value>
+        <name>fat_codfatura</name>
+        <rename>sk_codfatura</rename>
+        <default/>
+        <type>Integer</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>624</xloc>
+      <yloc>320</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Stream lookup 5</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>DIM PRODUTO</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>ift_item</name>
+        <field>prod_codorigem</field>
+      </key>
+      <value>
+        <name>prod_codproduto</name>
+        <rename>sk_codproduto</rename>
+        <default/>
+        <type>Integer</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>784</xloc>
+      <yloc>320</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Stream lookup 6</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>DIM TIPO PGTO</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>fat_tippag</name>
+        <field>cod_tipopgto</field>
+      </key>
+      <value>
+        <name>tp_codtppgto</name>
+        <rename>sk_codtppgto</rename>
+        <default/>
+        <type>None</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>944</xloc>
+      <yloc>320</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Stream lookup 7</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>DIM FORMA PGTO</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>fat_forpag</name>
+        <field>cod_formpgto</field>
+      </key>
+      <value>
+        <name>fp_codformpgto</name>
+        <rename>sk_codformpgto</rename>
+        <default/>
+        <type>None</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1088</xloc>
+      <yloc>320</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table input</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>uni7</connection>
+    <sql>SELECT  FAT.FAT_LOJA, &#xd;&#xa;		PES.PES_CODPES,&#xd;&#xa;		FAT.FAT_CODVEN, &#xd;&#xa;		FAT_DET.IFT_ITEM, &#xd;&#xa;		FAT.FAT_NUMFAT, &#xd;&#xa;		FAT.FAT_TIPPAG, &#xd;&#xa;		FAT.FAT_FORPAG,&#xd;&#xa;		CAST&#x28;REPLACE&#x28;CAST&#x28;FAT.FAT_DATFAT AS VARCHAR&#x28;10&#x29;&#x29;, &#x27;-&#x27;,&#x27;&#x27;&#x29; AS INT&#x29; DATA_SQ,&#xd;&#xa;		FAT_DET.IFT_QUANTFATC, &#xd;&#xa;		&#x28;FAT_DET.IFT_VALOR &#x2a; FAT_DET.IFT_QUANTFATC&#x29; VALOR_VENDA,&#xd;&#xa;		&#x28;FAT_DET.IFT_CUSTITM &#x2a; FAT_DET.IFT_QUANTFATC&#x29; CUSTO,&#xd;&#xa;		&#x28;&#x28;FAT_DET.IFT_VALOR &#x2a; FAT_DET.IFT_QUANTFATC&#x29; - &#x28;FAT_DET.IFT_CUSTITM &#x2a; FAT_DET.IFT_QUANTFATC&#x29;&#x29; LUCRO &#xd;&#xa;FROM FATURA	FAT&#xd;&#xa;	INNER JOIN ITEM_FATURA FAT_DET &#xd;&#xa;		ON FAT_DET.IFT_NUMFAT &#x3d; FAT.FAT_NUMFAT&#xd;&#xa;		AND FAT_DET.IFT_UNDADM &#x3d; FAT.FAT_UNDADM&#xd;&#xa;		AND FAT.FAT_LOJA &#x3d; FAT_DET.IFT_LOJA&#xd;&#xa;		AND FAT_DET.ift_empresa &#x3d; FAT.fat_empresa&#xd;&#xa;	INNER JOIN TAB_TIPO_PAG TP_PGTO &#xd;&#xa;		ON FAT.FAT_TIPPAG &#x3d; TP_PGTO.TPG_TIPPAG&#xd;&#xa;	INNER JOIN TAB_FORMA_PAG FRM_PGTO&#xd;&#xa;		ON FRM_PGTO.FPG_FORPAG &#x3d; FAT.FAT_FORPAG&#xd;&#xa;	INNER JOIN TAB_OPERFISCAL TOF &#xd;&#xa;		ON TOF.TOF_CODOPF &#x3d; FAT.FAT_CODOPE&#xd;&#xa;	LEFT JOIN PESSOA PES&#xd;&#xa;		ON FAT.FAT_CODVEN &#x3d; PES.PES_CODPES&#xd;&#xa;ORDER BY FAT_NUMFAT, FAT_LOJA&#xd;&#xa;&#xd;&#xa;</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>32</xloc>
+      <yloc>320</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Stream lookup 8</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>DIM TEMPO</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>data_sq</name>
+        <field>data_sk</field>
+      </key>
+      <value>
+        <name>data_sk</name>
+        <rename>sk_data</rename>
+        <default/>
+        <type>Integer</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1232</xloc>
+      <yloc>320</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>DIM TEMPO</name>
+    <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -849,137 +1061,16 @@
            <schema_name/>
            </partitioning>
     <connection>bi_uni7</connection>
-    <commit>100</commit>
-    <update_bypassed>N</update_bypassed>
-    <lookup>
-      <schema/>
-      <table>fato_vendas</table>
-      <key>
-        <name>quantidade_vendida</name>
-        <field>quantidade_vendida</field>
-        <condition>&#x3d;</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>valor_venda</name>
-        <field>valor_venda</field>
-        <condition>&#x3d;</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>custo</name>
-        <field>custo</field>
-        <condition>&#x3d;</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>lucro</name>
-        <field>lucro</field>
-        <condition>&#x3d;</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>sk_codcliente</name>
-        <field>sk_codcliente</field>
-        <condition>&#x3d;</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>sk_codvendedor</name>
-        <field>sk_codvendedor</field>
-        <condition>&#x3d;</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>sk_codloja</name>
-        <field>sk_codloja</field>
-        <condition>&#x3d;</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>sk_codfatura</name>
-        <field>sk_codfatura</field>
-        <condition>&#x3d;</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>sk_codproduto</name>
-        <field>sk_codproduto</field>
-        <condition>&#x3d;</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>sk_codtppgto</name>
-        <field>sk_codtppgto</field>
-        <condition>&#x3d;</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>sk_codformpgto</name>
-        <field>sk_codformpgto</field>
-        <condition>&#x3d;</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>quantidade_vendida</name>
-        <rename>quantidade_vendida</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>valor_venda</name>
-        <rename>valor_venda</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>custo</name>
-        <rename>custo</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>lucro</name>
-        <rename>lucro</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>sk_codcliente</name>
-        <rename>sk_codcliente</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>sk_codvendedor</name>
-        <rename>sk_codvendedor</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>sk_codloja</name>
-        <rename>sk_codloja</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>sk_codfatura</name>
-        <rename>sk_codfatura</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>sk_codproduto</name>
-        <rename>sk_codproduto</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>sk_codtppgto</name>
-        <rename>sk_codtppgto</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>sk_codformpgto</name>
-        <rename>sk_codformpgto</rename>
-        <update>Y</update>
-      </value>
-    </lookup>
+    <sql>SELECT &#x2a; FROM DIM_TEMPO</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1312</xloc>
-      <yloc>160</yloc>
+      <xloc>1232</xloc>
+      <yloc>464</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
