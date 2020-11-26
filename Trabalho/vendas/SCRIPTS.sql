@@ -36,7 +36,7 @@ CREATE TABLE dim_loja
 
 CREATE TABLE dim_pessoa
 (
-    pes_codcliente integer SERIAL,
+    pes_codcliente SERIAL,
     pes_codorigem character varying(5) COLLATE pg_catalog."default",
     pes_nome character varying(50) COLLATE pg_catalog."default",
     pes_cpf character varying(20) COLLATE pg_catalog."default",

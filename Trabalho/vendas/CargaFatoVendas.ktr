@@ -274,6 +274,32 @@
     </step>
 
   <step>
+    <name>DIM TEMPO</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>bi_uni7</connection>
+    <sql>SELECT &#x2a; FROM DIM_TEMPO</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1232</xloc>
+      <yloc>464</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>DIM TIPO PGTO</name>
     <type>TableInput</type>
     <description/>
@@ -988,32 +1014,6 @@
     </step>
 
   <step>
-    <name>Table input</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>uni7</connection>
-    <sql>SELECT  FAT.FAT_LOJA, &#xd;&#xa;		PES.PES_CODPES,&#xd;&#xa;		FAT.FAT_CODVEN, &#xd;&#xa;		FAT_DET.IFT_ITEM, &#xd;&#xa;		FAT.FAT_NUMFAT, &#xd;&#xa;		FAT.FAT_TIPPAG, &#xd;&#xa;		FAT.FAT_FORPAG,&#xd;&#xa;		CAST&#x28;REPLACE&#x28;CAST&#x28;FAT.FAT_DATFAT AS VARCHAR&#x28;10&#x29;&#x29;, &#x27;-&#x27;,&#x27;&#x27;&#x29; AS INT&#x29; DATA_SQ,&#xd;&#xa;		FAT_DET.IFT_QUANTFATC, &#xd;&#xa;		&#x28;FAT_DET.IFT_VALOR &#x2a; FAT_DET.IFT_QUANTFATC&#x29; VALOR_VENDA,&#xd;&#xa;		&#x28;FAT_DET.IFT_CUSTITM &#x2a; FAT_DET.IFT_QUANTFATC&#x29; CUSTO,&#xd;&#xa;		&#x28;&#x28;FAT_DET.IFT_VALOR &#x2a; FAT_DET.IFT_QUANTFATC&#x29; - &#x28;FAT_DET.IFT_CUSTITM &#x2a; FAT_DET.IFT_QUANTFATC&#x29;&#x29; LUCRO &#xd;&#xa;FROM FATURA	FAT&#xd;&#xa;	INNER JOIN ITEM_FATURA FAT_DET &#xd;&#xa;		ON FAT_DET.IFT_NUMFAT &#x3d; FAT.FAT_NUMFAT&#xd;&#xa;		AND FAT_DET.IFT_UNDADM &#x3d; FAT.FAT_UNDADM&#xd;&#xa;		AND FAT.FAT_LOJA &#x3d; FAT_DET.IFT_LOJA&#xd;&#xa;		AND FAT_DET.ift_empresa &#x3d; FAT.fat_empresa&#xd;&#xa;	INNER JOIN TAB_TIPO_PAG TP_PGTO &#xd;&#xa;		ON FAT.FAT_TIPPAG &#x3d; TP_PGTO.TPG_TIPPAG&#xd;&#xa;	INNER JOIN TAB_FORMA_PAG FRM_PGTO&#xd;&#xa;		ON FRM_PGTO.FPG_FORPAG &#x3d; FAT.FAT_FORPAG&#xd;&#xa;	INNER JOIN TAB_OPERFISCAL TOF &#xd;&#xa;		ON TOF.TOF_CODOPF &#x3d; FAT.FAT_CODOPE&#xd;&#xa;	LEFT JOIN PESSOA PES&#xd;&#xa;		ON FAT.FAT_CODVEN &#x3d; PES.PES_CODPES&#xd;&#xa;ORDER BY FAT_NUMFAT, FAT_LOJA&#xd;&#xa;&#xd;&#xa;</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>32</xloc>
-      <yloc>320</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
     <name>Stream lookup 8</name>
     <type>StreamLookup</type>
     <description/>
@@ -1050,7 +1050,7 @@
     </step>
 
   <step>
-    <name>DIM TEMPO</name>
+    <name>Table input</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -1060,8 +1060,8 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>bi_uni7</connection>
-    <sql>SELECT &#x2a; FROM DIM_TEMPO</sql>
+    <connection>uni7</connection>
+    <sql>SELECT  FAT.FAT_LOJA, &#xd;&#xa;		PES.PES_CODPES,&#xd;&#xa;		FAT.FAT_CODVEN, &#xd;&#xa;		FAT_DET.IFT_ITEM, &#xd;&#xa;		FAT.FAT_NUMFAT, &#xd;&#xa;		FAT.FAT_TIPPAG, &#xd;&#xa;		FAT.FAT_FORPAG,&#xd;&#xa;		CAST&#x28;REPLACE&#x28;CAST&#x28;FAT.FAT_DATFAT AS VARCHAR&#x28;10&#x29;&#x29;, &#x27;-&#x27;,&#x27;&#x27;&#x29; AS INT&#x29; DATA_SQ,&#xd;&#xa;		FAT_DET.IFT_QUANTFATC, &#xd;&#xa;		&#x28;FAT_DET.IFT_VALOR &#x2a; FAT_DET.IFT_QUANTFATC&#x29; VALOR_VENDA,&#xd;&#xa;		&#x28;FAT_DET.IFT_CUSTITM &#x2a; FAT_DET.IFT_QUANTFATC&#x29; CUSTO,&#xd;&#xa;		&#x28;&#x28;FAT_DET.IFT_VALOR &#x2a; FAT_DET.IFT_QUANTFATC&#x29; - &#x28;FAT_DET.IFT_CUSTITM &#x2a; FAT_DET.IFT_QUANTFATC&#x29;&#x29; LUCRO &#xd;&#xa;FROM FATURA	FAT&#xd;&#xa;	INNER JOIN ITEM_FATURA FAT_DET &#xd;&#xa;		ON FAT_DET.IFT_NUMFAT &#x3d; FAT.FAT_NUMFAT&#xd;&#xa;		AND FAT_DET.IFT_UNDADM &#x3d; FAT.FAT_UNDADM&#xd;&#xa;		AND FAT.FAT_LOJA &#x3d; FAT_DET.IFT_LOJA&#xd;&#xa;		AND FAT_DET.ift_empresa &#x3d; FAT.fat_empresa&#xd;&#xa;	INNER JOIN TAB_TIPO_PAG TP_PGTO &#xd;&#xa;		ON FAT.FAT_TIPPAG &#x3d; TP_PGTO.TPG_TIPPAG&#xd;&#xa;	INNER JOIN TAB_FORMA_PAG FRM_PGTO&#xd;&#xa;		ON FRM_PGTO.FPG_FORPAG &#x3d; FAT.FAT_FORPAG&#xd;&#xa;	INNER JOIN TAB_OPERFISCAL TOF &#xd;&#xa;		ON TOF.TOF_CODOPF &#x3d; FAT.FAT_CODOPE&#xd;&#xa;	LEFT JOIN PESSOA PES&#xd;&#xa;		ON FAT.FAT_CODVEN &#x3d; PES.PES_CODPES&#xd;&#xa;ORDER BY FAT_NUMFAT, FAT_LOJA&#xd;&#xa;&#xd;&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -1069,8 +1069,8 @@
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1232</xloc>
-      <yloc>464</yloc>
+      <xloc>32</xloc>
+      <yloc>320</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
