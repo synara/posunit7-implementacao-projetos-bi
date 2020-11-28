@@ -73,6 +73,27 @@
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
+    <notepad>
+      <note>Inicialmente, t&#xed;nhamos implementado o ETL usando o componente Insert&#x2f;Update para fazer carga nos dados da tabela fato. &#xd;&#xa;Entretanto, por algum motivo, estava levando um tempo consideralmente alto &#x28;na minha m&#xe1;quina estava levando 2h, mas na da Marcela, &#xd;&#xa;outra integrante do time, levou 15h&#x29;  para processar e trocamos pelo table output, por ter se mostrado mais r&#xe1;pido. &#xd;&#xa;O lado negativo que encontramos foi o fato de que, para n&#xe3;o duplicar os dados, usamos a op&#xe7;&#xe3;o para &#x22;truncar&#x22; a tabela, &#xd;&#xa;apagando, assim, todos os dados e os subindo novamente.  Pela quest&#xe3;o de que, em um cen&#xe1;rio em produ&#xe7;&#xe3;o estar&#xed;amos &#xd;&#xa;comprometendo dados hist&#xf3;ricos, s&#xf3; optamos trocar esses componentes por termos consci&#xea;ncia de que nesse trabalho &#xd;&#xa;n&#xe3;o estar&#xed;amos passando por essa situa&#xe7;&#xe3;o.&#xd;&#xa;</note>
+      <xloc>336</xloc>
+      <yloc>560</yloc>
+      <width>1103</width>
+      <heigth>203</heigth>
+      <fontname>Segoe UI</fontname>
+      <fontsize>9</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>205</backgroundcolorgreen>
+      <backgroundcolorblue>112</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
   </notepads>
   <connection>
     <name>bi_uni7</name>
